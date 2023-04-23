@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">MADClassProj</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="welcome_message">Hello</string>
+    <string name="jukebox_button">JUKEBOX</string>
+    <string name="artist_title">Artist</string>
+    <string name="song_title">Title</string>
+    <string name="url_title">URL</string>
+    <string name="song_default">No song</string>
+    <string name="status_stopped">Stopped</string>
+    <string name="status_playing">Playing</string>
+    <string name="status_requesting">Requesting song from CTower…</string>
+    <string name="status_ready">Ready</string>
+    <string name="invalid_url">Invalid Url!</string>
+    <string name="unknown_error">That didn\'t work!</string>
+</resources>
