@@ -21,37 +21,40 @@ import com.example.music_player.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    public void updateWelcomeMessage() {
-
-        String username = "EMULATOR DEVICE";
-        String current_datetime = new Date().toString();
-        String newText = "Hello " + username + ", \n your last login was at " + current_datetime;
-        TextView myTextView = findViewById(R.id.welcome_message);
-        myTextView.setText(newText);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        updateWelcomeMessage();
 
-        Button jukeboxButton = findViewById(R.id.jukebox_button);
+        RelativeLayout jukeboxButton = findViewById(R.id.jukebox_btn);
+        RelativeLayout playlistButton = findViewById(R.id.playlist_btn);
 
         jukeboxButton.setOnClickListener((View view) -> {
             goToJukeboxActivity(view);
+
+        });
+
+        playlistButton.setOnClickListener((View view) -> {
+            goToPlaylistActivity(view);
 
         });
     }
 
     public void goToJukeboxActivity(View view) {
         Intent intent = new Intent(MainActivity.this, JukeboxActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToPlaylistActivity(View view) {
+        Intent intent = new Intent(MainActivity.this, PlaylistActivity.class);
         startActivity(intent);
     }
 }
