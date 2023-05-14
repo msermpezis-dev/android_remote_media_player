@@ -14,10 +14,10 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toEndOf="@+id/play_btn"
+        app:layout_constraintHorizontal_bias="0.619"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.222" />
+        app:layout_constraintVertical_bias="0.228" />
 
     <TextView
         android:id="@+id/artist_name_tv"
@@ -29,10 +29,10 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toEndOf="@+id/play_btn"
+        app:layout_constraintHorizontal_bias="0.619"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/song_title_tv"
-        app:layout_constraintVertical_bias="0.714" />
+        app:layout_constraintVertical_bias="0.703" />
 
     <ImageButton
         android:id="@+id/play_btn"

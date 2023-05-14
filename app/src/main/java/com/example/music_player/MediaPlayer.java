@@ -9,7 +9,7 @@ public class MediaPlayer {
 
     private SongRequester songRequester = new SongRequester();
 
-    private final android.media.MediaPlayer mediaPlayer = new android.media.MediaPlayer();;
+    private final android.media.MediaPlayer mediaPlayer = new android.media.MediaPlayer();
     private int mediaFileLengthInMilliseconds;
 
     public void playSong(String url, final VolleyCallback callback, Context context){
@@ -42,7 +42,6 @@ public class MediaPlayer {
             throw new RuntimeException(e);
         }
     }
-
 
     public void pauseSong(){
         if(this.mediaPlayer.isPlaying()) {
