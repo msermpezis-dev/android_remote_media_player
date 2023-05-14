@@ -17,6 +17,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 import java.io.StringReader;
+import java.util.LinkedList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -55,6 +56,36 @@ public class SongRequester extends AppCompatActivity {
         queue.add(stringRequest);
     }
 
+    public void requestSongList(final VolleyCallback callback, Context context) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url = "http://mad.mywork.gr/get_playlist.php?t=1546";
+        String[] songValues = new String[3];
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            callback.onSuccess(loadXMLSongListFromString(response));
+                        } catch (Exception e) {
+                            Log.e("Volley Error", e.getMessage());
+                            callback.onError(R.string.invalid_url);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        if (error.getMessage() != null) {
+                            Log.e("Volley Error", error.getMessage());
+                            callback.onError(R.string.unknown_error);
+                        } else {
+                            Log.e("Volley Possible Timeout Error", "Unknown error occurred");
+                        }
+                    }
+                });
+        queue.add(stringRequest);
+    }
+
     public String[] loadXMLFromString(String xml) throws Exception
     {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -69,5 +100,24 @@ public class SongRequester extends AppCompatActivity {
             songValues[2] = doc.getElementsByTagName("url").item(0).getTextContent();
         }
         return songValues;
+    }
+
+    public LinkedList<Song> loadXMLSongListFromString(String xml) throws Exception
+    {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        InputSource inputSource = new InputSource(new StringReader(xml));
+        Document doc = builder.parse(inputSource);
+        LinkedList<Song> songLinkedList = new LinkedList<>();
+        if (doc.getElementsByTagName("status").item(0).getTextContent().equals("2-OK")
+                && doc.getElementsByTagName("song").item(0).hasChildNodes()){
+            for (int i=0; i< doc.getElementsByTagName("song").getLength();i++) {
+                String title = doc.getElementsByTagName("title").item(i).getTextContent();
+                String artist = doc.getElementsByTagName("artist").item(i).getTextContent();
+                String url = doc.getElementsByTagName("url").item(i).getTextContent();
+                songLinkedList.add(new Song(title, artist, url));
+            }
+        }
+        return songLinkedList;
     }
 }

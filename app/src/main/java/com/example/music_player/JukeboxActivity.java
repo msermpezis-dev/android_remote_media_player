@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.LinkedList;
+
 public class JukeboxActivity extends AppCompatActivity implements VolleyCallback {
 
     private ImageButton btn_play;
@@ -61,6 +63,11 @@ public class JukeboxActivity extends AppCompatActivity implements VolleyCallback
         this.song_artist = songValues[1];
         this.song_url = songValues[2];
         showSongDetails();
+    }
+
+    @Override
+    public void onSuccess(LinkedList<Song> response) {
+
     }
 
     @Override

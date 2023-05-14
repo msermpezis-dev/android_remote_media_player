@@ -8,29 +8,37 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.LinkedList;
 
-public class PlaylistActivity extends AppCompatActivity {
-
+public class PlaylistActivity extends AppCompatActivity implements VolleyCallback{
+    private RecyclerView recyclerView;
+    private SongRequester songRequester = new SongRequester();
+    LinkedList<Song> songList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.playlist_activity);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        LinkedList<Song> SongList = new LinkedList<>();
+        recyclerView = findViewById(R.id.recyclerView);
 
-        for (int i=0;i<10;i++){
-            SongList.add(new Song("title", "author", "url"));
-        }
+        songRequester.requestSongList(this, this);
 
-        SongAdapter songAdapter = new SongAdapter(this, SongList);
+    }
+
+    @Override
+    public void onSuccess(String[] response) {
+
+    }
+
+    @Override
+    public void onSuccess(LinkedList<Song> songList) {
+        this.songList = songList;
+
+        SongAdapter songAdapter = new SongAdapter(this, songList);
         recyclerView.setAdapter(songAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
 
-
-
-
-
-
+    @Override
+    public void onError(int error) {
 
     }
 }
