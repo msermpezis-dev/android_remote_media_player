@@ -81,8 +81,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
         seekBar.setProgress(0);
         holder.play_btn.setVisibility(View.VISIBLE);
         holder.pause_btn.setVisibility(View.GONE);
-        System.out.println("finished");
-        currentPlayingPosition++;
     }
 
     private void updatePlayingView() {
@@ -120,6 +118,15 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
 
         return String.format(Locale.ENGLISH,"%02d", minutes) + ":"
                 + String.format(Locale.ENGLISH,"%02d", seconds);
+    }
+    private void playNextSong() {
+        int nextPosition = currentPlayingPosition + 1;
+        if (nextPosition < songList.size()) {
+            currentPlayingPosition = nextPosition;
+            Song nextSong = songList.get(nextPosition);
+            playSong(nextSong.getUrl());
+            notifyItemChanged(nextPosition);
+        }
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, SeekBar.OnSeekBarChangeListener{
@@ -208,6 +215,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
                 @Override
                 public void onCompletion(android.media.MediaPlayer mediaPlayer) {
                     releaseMediaPlayer();
+                    playNextSong();
                 }
             });
 
@@ -219,7 +227,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
 
         mediaPlayer.release();
         mediaPlayer = null;
-        currentPlayingPosition = -1;
+//        currentPlayingPosition = -1;
     }
 
 }

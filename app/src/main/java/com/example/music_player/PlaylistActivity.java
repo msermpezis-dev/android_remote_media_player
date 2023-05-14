@@ -25,6 +25,7 @@ public class PlaylistActivity extends AppCompatActivity implements VolleyCallbac
 
         recyclerView = findViewById(R.id.recyclerView);
         seekBar = findViewById(R.id.seekBar);
+        seekBar.setEnabled(false);
         song_duration_tv = findViewById(R.id.song_duration_tv);
 
         songRequester.requestSongList(this, this);
